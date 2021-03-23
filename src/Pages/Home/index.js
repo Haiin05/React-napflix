@@ -1,9 +1,10 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import HomeContainer from "./HomeContainer";
 import styled from "styled-components";
 
 const Home = () => {
-  return <HomeWrapper></HomeWrapper>;
+  return <HomeContainer />;
 };
 
 export default withRouter(Home);

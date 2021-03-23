@@ -1,9 +1,10 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import TVContainer from "./TVContainer";
 import styled from "styled-components";
 
 const TV = () => {
-  return <TVWrapper></TVWrapper>;
+  return <TVContainer />;
 };
 
 export default withRouter(TV);
