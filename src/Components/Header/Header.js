@@ -7,13 +7,13 @@ const Header = ({ location: { pathname } }) => {
     <HeaderWrapper>
       <List>
         <Item current={pathname === "/movies"}>
-          <HLink to="movies">Movies</HLink>
+          <HLink to="/movies">Movies</HLink>
         </Item>
         <Item current={pathname === "/tv"}>
-          <HLink to="tv">TV</HLink>
+          <HLink to="/tv">TV</HLink>
         </Item>
         <Item current={pathname === "/search"}>
-          <HLink to="search">Search</HLink>
+          <HLink to="/search">Search</HLink>
         </Item>
       </List>
     </HeaderWrapper>

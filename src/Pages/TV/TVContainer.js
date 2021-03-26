@@ -34,7 +34,6 @@ const TVContainer = () => {
       setLoading(false);
     }
   }, []);
-  console.log(topRated, popular, airingToday, error, loading);
   return (
     <TVPresenter
       topRated={topRated}

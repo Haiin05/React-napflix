@@ -1,26 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import { moviesApi, tvApi } from "../../api";
 import SearchPresenter from "./SearchPresenter";
 
 const SearchContainer = () => {
-  const [apis, setApis] = useState({
-    movieResults: null,
-    tvResults: null,
-    searchTerm: "",
-    error: null,
-    loading: null,
-  });
-  const { movieResults, tvResults, searchTerm, error, loading } = apis;
+  const [movieResults, setMovieResults] = useState(null);
+  const [tvResults, setTvResults] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(null);
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     if (searchTerm !== "") {
       searchByTerm();
     }
   };
 
   const searchByTerm = async () => {
-    setApis({ loading: true });
+    setLoading(true);
     try {
       const {
         data: { results: movieResults },
@@ -28,14 +26,21 @@ const SearchContainer = () => {
       const {
         data: { results: tvResults },
       } = await tvApi.search(searchTerm);
-      setApis({ movieResults, tvResults });
+      setMovieResults(movieResults);
+      setTvResults(tvResults);
     } catch {
-      setApis({ error: "Can't find movies information" });
+      setError("Can't find movies information");
     } finally {
-      setApis({ loading: false });
+      setLoading(false);
     }
   };
-  console.log(movieResults, tvResults, searchTerm, error, loading);
+
+  const updateTerm = (e) => {
+    const {
+      target: { value },
+    } = e;
+    setSearchTerm(value);
+  };
   return (
     <SearchPresenter
       movieResults={movieResults}
@@ -44,6 +49,7 @@ const SearchContainer = () => {
       error={error}
       loading={loading}
       handleSubmit={handleSubmit}
+      updateTerm={updateTerm}
     />
   );
 };

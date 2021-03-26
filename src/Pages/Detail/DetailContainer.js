@@ -12,39 +12,37 @@ const DetailContainer = (props) => {
   );
 
   useEffect(() => {
-    handleDetail();
-  }, []);
+    const handleDetail = async () => {
+      const {
+        match: {
+          params: { id },
+        },
+        history: { push },
+      } = props;
 
-  const handleDetail = async () => {
-    const {
-      match: {
-        params: { id },
-      },
-      history: { push },
-    } = props;
-
-    const parsedId = parseInt(id);
-
-    if (isNaN(parsedId)) {
-      push("/");
-    }
-
-    let result = null;
+      const parsedId = parseInt(id);
+      if (isNaN(parsedId)) {
+        return push("/");
+      }
+      if (isMovie) {
+        const { data: result } = await moviesApi.movieDetail(parsedId);
+        setResult(result);
+      } else {
+        const { data: result } = await tvApi.showDetail(parsedId);
+        setResult(result);
+      }
+    };
 
     try {
-      if (isMovie) {
-        ({ data: result } = await moviesApi.movieDetail(parsedId));
-      } else {
-        ({ data: result } = await tvApi.showDetail(parsedId));
-      }
+      handleDetail();
     } catch {
       setError("Can't find anything.");
     } finally {
       setLoading(false);
       setResult(result);
     }
-  };
-  console.log(result);
+  }, []);
+
   return <DetailPresenter result={result} error={error} loading={loading} />;
 };
 

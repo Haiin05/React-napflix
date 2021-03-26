@@ -6,7 +6,6 @@ import {
   Redirect,
 } from "react-router-dom";
 import Home from "./Pages/Home";
-import Movies from "./Pages/Movies";
 import TV from "./Pages/TV";
 import Search from "./Pages/Search";
 import Detail from "./Pages/Detail";
